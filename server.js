@@ -2,24 +2,22 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const auth = require('basic-auth');
-const mongoose = require('mongoose');  // Import mongoose
+const { MongoClient } = require('mongodb');  // Import MongoClient from mongodb
 
 const app = express();
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-// Connect to MongoDB using the connection string from MongoDB Atlas
-mongoose.connect(process.env.MONGO_URI || 'your-mongodb-connection-string', {
-});
+let db;
+const mongoUri = process.env.MONGO_URI || 'your-mongodb-connection-string';
 
-// Define the Blog Post schema and model
-const postSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  content: { type: String, required: true },
-  date: { type: Date, default: Date.now },
-});
-
-const Post = mongoose.model('Post', postSchema);
+// Connect to MongoDB using native MongoClient
+MongoClient.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(client => {
+    db = client.db();  // Use the default database
+    console.log('Connected to MongoDB');
+  })
+  .catch(err => console.error(err));
 
 // Use environment variables for admin username and password
 const username = process.env.ADMIN_USERNAME || '';
@@ -35,10 +33,10 @@ const authenticate = (req, res, next) => {
   next();
 };
 
-// API route to fetch blog posts from the database
+// API route to fetch blog posts from MongoDB
 app.get('/api/blog-posts', async (req, res) => {
   try {
-    const posts = await Post.find().sort({ date: -1 });  // Fetch all posts, sorted by date
+    const posts = await db.collection('posts').find().sort({ date: -1 }).toArray();  // Fetch all posts, sorted by date
     res.json(posts);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -48,10 +46,14 @@ app.get('/api/blog-posts', async (req, res) => {
 // API route to create a new blog post (admin only)
 app.post('/api/blog-posts', authenticate, async (req, res) => {
   const { title, content } = req.body;
+  const newPost = {
+    title,
+    content,
+    date: new Date(),
+  };
   try {
-    const newPost = new Post({ title, content });
-    await newPost.save();  // Save the new blog post to MongoDB
-    res.status(201).json({ message: 'Blog post created!', post: newPost });
+    const result = await db.collection('posts').insertOne(newPost);  // Insert new post into MongoDB
+    res.status(201).json({ message: 'Blog post created!', post: result.ops[0] });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
