@@ -3,17 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Simple Blog</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        h1 {
             text-align: center;
-            margin: 50px;
+        }
+        .blog-post {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to the Home Page</h1>
-    <p>This is a simple web server built with Express.js.</p>
+    <h1>Welcome to the Blog</h1>
+    <div id="blog-posts">
+        <!-- Blog posts will be injected here -->
+    </div>
+
+    <script>
+        // Fetch blog posts and display them
+        fetch('/api/blog-posts')
+            .then(response => response.json())
+            .then(posts => {
+                const postsContainer = document.getElementById('blog-posts');
+                posts.forEach(post => {
+                    const postDiv = document.createElement('div');
+                    postDiv.classList.add('blog-post');
+                    postDiv.innerHTML = `<h2>${post.title}</h2><p>${post.content}</p>`;
+                    postsContainer.appendChild(postDiv);
+                });
+            });
+    </script>
 </body>
 </html>
