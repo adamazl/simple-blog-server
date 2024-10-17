@@ -11,7 +11,7 @@ A basic blog site built with Node.js and Express. The home page displays blog po
 ## Live Demo
 
 You can view the live demo of the project here:  
-👉 [Simple Blog Server on Railway](https://simple-http-server.up.railway.app)
+👉 [Simple Blog Server on Railway](https://simpleblogserver.up.railway.app)
 
 ## Installation
 
