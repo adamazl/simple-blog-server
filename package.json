@@ -1,5 +1,18 @@
 {
   "dependencies": {
-    "basic-auth": "^2.0.1"
-  }
+    "basic-auth": "^2.0.1",
+    "express": "^4.21.1"
+  },
+  "name": "simple-http-server",
+  "version": "1.0.0",
+  "description": "This is a simple HTTP server that can respond to `GET` and `HEAD` requests. It's written in Node.js, and you can use it to serve basic HTTP responses.",
+  "main": "server.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
