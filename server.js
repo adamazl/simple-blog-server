@@ -11,8 +11,8 @@ app.use(bodyParser.json());
 const BLOG_POSTS_FILE = path.join(__dirname, 'blog-posts.json');
 
 // Use environment variables for admin username and password
-const username = process.env.ADMIN_USERNAME || '';
-const password = process.env.ADMIN_PASSWORD || '';
+const username = process.env.ADMIN_USERNAME || 'admin';
+const password = process.env.ADMIN_PASSWORD || 'password123';
 
 // Middleware for basic authentication on the admin page
 const authenticate = (req, res, next) => {
