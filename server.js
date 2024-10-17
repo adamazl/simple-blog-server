@@ -10,10 +10,14 @@ app.use(bodyParser.json());
 
 const BLOG_POSTS_FILE = path.join(__dirname, 'blog-posts.json');
 
+// Use environment variables for admin username and password
+const username = process.env.ADMIN_USERNAME || 'admin';  // Default to 'admin' if not set
+const password = process.env.ADMIN_PASSWORD || 'password123';  // Default to 'password123' if not set
+
 // Middleware for basic authentication on the admin page
 const authenticate = (req, res, next) => {
   const user = auth(req);
-  if (!user || user.name !== 'admin' || user.pass !== 'password123') {
+  if (!user || user.name !== username || user.pass !== password) {
     res.set('WWW-Authenticate', 'Basic realm="Admin Area"');
     return res.status(401).send('Access denied. Admins only.');
   }
