@@ -10,8 +10,6 @@ app.use(bodyParser.json());
 
 // Connect to MongoDB using the connection string from MongoDB Atlas
 mongoose.connect(process.env.MONGO_URI || 'your-mongodb-connection-string', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
 });
 
 // Define the Blog Post schema and model
