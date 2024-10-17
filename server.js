@@ -12,12 +12,15 @@ let db;
 const mongoUri = process.env.MONGO_URI || 'your-mongodb-connection-string';
 
 // Connect to MongoDB using native MongoClient
-MongoClient.connect(mongoUri)
+MongoClient.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(client => {
     db = client.db();  // Use the default database
     console.log('Connected to MongoDB');
   })
-  .catch(err => console.error(err));
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);  // Exit the app if there's a connection error
+  });
 
 // Use environment variables for admin username and password
 const username = process.env.ADMIN_USERNAME || '';
@@ -74,4 +77,3 @@ app.listen(PORT, () => {
 app.get('/', (req, res) => {
   res.send('Simple Blog Server is running.');
 });
-
