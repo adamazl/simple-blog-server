@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
     <title>Simple Blog</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-        }
-        .blog-post {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-    </style>
 </head>
-<body>
-    <h1>Welcome to the Blog</h1>
-    <div id="blog-posts">
-        <!-- Blog posts will be injected here -->
-    </div>
+
+<body class="bg-gray-100">
+    <header class="bg-white shadow">
+        <div class="max-w-4xl mx-auto px-4 py-6">
+            <h1 class="text-4xl font-bold text-center text-blue-600">Welcome to the Blog</h1>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <div id="blog-posts" class="space-y-8">
+            <!-- Blog posts will be injected here -->
+        </div>
+    </main>
+
+    <footer class="bg-white shadow mt-12">
+        <div class="max-w-4xl mx-auto px-4 py-4 text-center">
+            <p class="text-gray-600">&copy; 2024 Simple Blog. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
         // Fetch blog posts and display them
@@ -35,11 +35,12 @@
                 const postsContainer = document.getElementById('blog-posts');
                 posts.forEach(post => {
                     const postDiv = document.createElement('div');
-                    postDiv.classList.add('blog-post');
-                    postDiv.innerHTML = `<h2>${post.title}</h2><p>${post.content}</p>`;
+                    postDiv.classList.add('bg-white', 'p-6', 'rounded-lg', 'shadow-lg');
+                    postDiv.innerHTML = `<h2 class="text-2xl font-semibold text-blue-500">${post.title}</h2><p class="text-gray-700 mt-2">${post.content}</p>`;
                     postsContainer.appendChild(postDiv);
                 });
             });
     </script>
 </body>
+
 </html>
