@@ -12,7 +12,7 @@ let db;
 const mongoUri = process.env.MONGO_URI || 'your-mongodb-connection-string';
 
 // Connect to MongoDB using native MongoClient
-MongoClient.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+MongoClient.connect(mongoUri)
   .then(client => {
     db = client.db();  // Use the default database
     console.log('Connected to MongoDB');
