@@ -1,65 +1,68 @@
-# Simple HTTP Server
+# Simple Blog Server
 
-This is a simple HTTP server that can respond to `GET` and `HEAD` requests. It's written in Node.js, and you can use it to serve basic HTTP responses.
+A basic blog site built with Node.js and Express. The home page displays blog posts, and the admin page allows users to upload new posts. Authentication is implemented for the admin page using basic HTTP authentication.
 
 ## Features
-- Handles `GET` requests by returning a "Hello, World!" message.
-- Handles `HEAD` requests by sending only the headers.
-- Easily customizable for different responses or endpoints.
 
-## Requirements
-- [Node.js](https://nodejs.org/) (v12 or higher)
+- View blog posts on the homepage.
+- Admin page for creating and uploading new blog posts.
+- Blog posts are stored in a simple JSON file for persistence.
 
-## Setup
+## Live Demo
 
-1. **Clone the repository**:
+You can view the live demo of the project here:  
+👉 [Simple Blog Server on Railway](https://simple-http-server.up.railway.app)
+
+## Installation
+
+To run the project locally:
+
+1. Clone the repository:
+
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/yourusername/simple-blog-server.git
+   cd simple-blog-server
    ```
 
-2. **Install Node.js (if not already installed)**:
-   Download and install Node.js from [here](https://nodejs.org/).
+2. Install the dependencies:
 
-3. **Run the server**:
-   Run the following command in your terminal to start the server:
    ```bash
-   node server.js
+   npm install
    ```
 
-   The server will be running at `http://127.0.0.1:3000/`.
+3. Run the server:
 
-## How to Use
+   ```bash
+   npm start
+   ```
 
-### GET Request
-You can make a `GET` request by visiting the following URL in your browser or using a tool like `curl`:
+   The server will be running on `http://localhost:3000/`.
 
-```bash
-curl http://127.0.0.1:3000/
-```
+## Admin Access
 
-This will return:
-```
-Hello, World!
-```
+To access the admin page, visit `/admin` on the server. Use the following credentials to log in:
 
-### HEAD Request
-You can make a `HEAD` request like this:
+- **Username**: `admin`
+- **Password**: `password123`
 
-```bash
-curl -I http://127.0.0.1:3000/
-```
+You can update the admin credentials by setting the following environment variables:
 
-This will return the headers only, without the body.
+- `ADMIN_USERNAME`
+- `ADMIN_PASSWORD`
 
-## Customization
-To customize the response of the server, open the `server.js` file and modify the content in the following section:
+## API Endpoints
 
-```javascript
-if (req.method === 'GET') {
-  res.end('Hello, World!\n');  // Change this message to whatever you like
-}
-```
+- `GET /api/blog-posts`: Retrieve a list of all blog posts.
+- `POST /api/blog-posts`: Create a new blog post (admin only).
+
+## Deployment
+
+This project is hosted on [Railway](https://railway.app). To deploy it yourself:
+
+1. Create a new project on Railway.
+2. Connect your GitHub repository.
+3. Railway will automatically detect and deploy the app.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+This project is licensed under the MIT License.
